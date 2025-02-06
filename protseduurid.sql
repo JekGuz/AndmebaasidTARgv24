@@ -1,0 +1,2 @@
+--SQL SALVESTATUD PROTSEDUURID-- Funktsioonid - mitu SQL käsku käivitakse järjest
+--SQL SERVER
