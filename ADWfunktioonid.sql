@@ -69,3 +69,39 @@ Create Table ##EmployeeDetails(Id int, Name nvarchar(20))
 
 -- index
 Select * from DIMEmployee where BaseRate > 10 and BaseRate < 50;
+
+--shows table from 10 to 50
+Select * From DIMEmployee where BaseRate > 10 and BaseRate < 50;
+--the index has been created for columb BaseRate (ASC -increase)
+create index IX_tblEmployee_BaseRate
+ON DIMEmployee (BaseRate ASC)
+
+--shows table from 50 to 70  - works
+Select * From DIMEmployee where BaseRate > 50 and BaseRate < 70;
+
+
+--cklasteeritud ja mitte klasteeritud indeksid
+--loome tabeli
+create table tblEmployee (
+Id int Primary Key,
+Name nvarchar (50),
+Salary int,
+Gender nvarchar (10),
+City nvarchar(50));
+
+Insert into tblEmployee Values(3, 'John', 4500, 'Male', 'New York');
+Insert into tblEmployee Values(1, 'Sam', 4500, 'Male', 'London');
+Insert into tblEmployee Values(4, 'JSara', 5500, 'Female', 'Tokyo');
+
+Select * FROM tblEmployee;
+
+-- et luua klasteeritud indeksi on vaja kasturada PK index
+--parem klisk tabeli paele - index ja rename ---kopeerimine index nimi
+-- näitab index pärast execute sp_helpindex tblEmployee;
+-- PK__tblEmplo__3214EC07D9745E45  nimu
+--kustutame autamaatselt loodud index
+DROP CLUSTERED INDEX PK__tblEmplo__3214EC07D9745E45
+-- näitab loodud index
+execute sp_helpindex tblEmployee;
+Alter table tblEmployee add primary key (Id);
+drop index tblEmployee.PK__tblEmplo__3214EC07D9745E45;
